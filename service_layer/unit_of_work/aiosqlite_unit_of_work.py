@@ -2,7 +2,7 @@
 import aiosqlite
 
 import config
-from adapters.sqlite_repositories.cat_repository import CatRepository
+from adapters.aiosqlite.sqlite_repositories.cat_repository import CatRepository
 from service_layer.unit_of_work.abstract_unit_of_work import AbstractUnitOfWork
 
 
@@ -18,6 +18,10 @@ class AiosqliteUnitOfWork(AbstractUnitOfWork):
 
     @property
     def conn(self):
+        """
+        Readonly property to get connection.
+        :return:
+        """
         return self._db
 
     async def __aenter__(self):

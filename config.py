@@ -11,3 +11,17 @@ def get_sqlite_connection_str():
     """
     db_path = THIS_DIR / 'assets' / 'databases' / 'sqlite.db'
     return str(db_path)
+
+
+def get_csv_tables_names():
+    """
+    Returns paths of csv files.
+    :return: Dict[str, str]
+    """
+    db_path = THIS_DIR / 'assets' / 'databases' / 'csv'
+    names = ['cats.csv']
+    return {name[:name.find('.')]: str(db_path / name) for name in names}
+
+
+def get_csv_headers():
+    return {'cats': ('id', 'nick')}

@@ -22,3 +22,5 @@ tomlkit==0.11.6
 wrapt==1.14.1
 
 loguru==0.6.0
+aiocsv==1.2.3
+aiofiles==22.1.0

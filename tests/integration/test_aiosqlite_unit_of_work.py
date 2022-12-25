@@ -2,7 +2,7 @@ from typing import Optional
 
 import pytest
 
-from adapters.create_db import create_tables, CREATE_CATS_TABLE
+from adapters.aiosqlite.create_db import CREATE_CATS_TABLE
 from domain.models import Cat
 from service_layer.unit_of_work.aiosqlite_unit_of_work import \
     AiosqliteUnitOfWork

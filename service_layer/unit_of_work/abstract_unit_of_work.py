@@ -1,14 +1,16 @@
 """ Module src.unit_of_work """
 import abc
+from typing import Optional
 
-from adapters.sqlite_repositories.cat_repository import CatRepository
+from adapters.abstract_repository import AbstractRepository
+from adapters.aiosqlite.sqlite_repositories.cat_repository import CatRepository
 
 
 class AbstractUnitOfWork(abc.ABC):
     """
     Abstract class for `unit of work` realizations.
     """
-    cats: CatRepository
+    cats: Optional[AbstractRepository]
 
     async def __aenter__(self):
         return self

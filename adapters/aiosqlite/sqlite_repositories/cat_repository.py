@@ -1,7 +1,8 @@
 """ Module adapters.sqlite_repositories.cat_repository """
 from typing import List, Optional
 
-from adapters.sqlite_repositories.abstract_repository import AbstractRepository
+from adapters.abstract_repository import \
+    AbstractRepository
 from domain import models
 from domain.models import Cat
 
@@ -32,8 +33,7 @@ class CatRepository(AbstractRepository):
         await cursor.close()
         if row is None:
             return None
-        else:
-            return Cat(*row)
+        return Cat(*row)
 
     async def update(self, item):
         await self.session.execute(
