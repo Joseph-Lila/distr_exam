@@ -26,7 +26,7 @@ class CatRepository(AbstractRepository):
         cursor = await self.session.execute(
             "SELECT * "
             "FROM cats "
-            "WHERE id = ?;",
+            "WHERE item_id = ?;",
             (item_id,)
         )
         row = await cursor.fetchone()
@@ -39,14 +39,14 @@ class CatRepository(AbstractRepository):
         await self.session.execute(
             "UPDATE cats "
             "SET nick = ? "
-            "WHERE id = ?;",
+            "WHERE item_id = ?;",
             (item.nick, item.item_id)
         )
 
     async def delete(self, item_id: int):
         await self.session.execute(
             "DELETE FROM cats "
-            "WHERE id = ?;",
+            "WHERE item_id = ?;",
             (item_id,)
         )
 

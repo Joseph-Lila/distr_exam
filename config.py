@@ -9,7 +9,7 @@ def get_sqlite_connection_str():
     Returns path to sqlite database.
     :return: str
     """
-    db_path = THIS_DIR / 'assets' / 'databases' / 'sqlite.db'
+    db_path = THIS_DIR / 'assets' / 'databases' / 'sqlite_Source.db'
     return str(db_path)
 
 
@@ -24,4 +24,4 @@ def get_csv_tables_names():
 
 
 def get_csv_headers():
-    return {'cats': ('id', 'nick')}
+    return {'cats': ('item_id', 'nick')}

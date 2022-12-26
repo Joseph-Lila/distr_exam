@@ -9,13 +9,17 @@ from loguru import logger
 
 from config import get_sqlite_connection_str
 
-CREATE_CATS_TABLE = "CREATE TABLE IF NOT EXISTS cats (" \
-                         "id INTEGER PRIMARY KEY AUTOINCREMENT," \
-                         "nick TEXT" \
-                         ");"
+CREATE_MUSIC_FAVORS_TABLE = "CREATE TABLE IF NOT EXISTS music_favors (" \
+                    "item_id INTEGER PRIMARY KEY AUTOINCREMENT," \
+                    "group_name TEXT," \
+                    "country TEXT," \
+                    "mentor_surname TEXT," \
+                    "written_disks_quantity INTEGER," \
+                    "total_disks_quantity INTEGER" \
+                    ");"
 
 CREATE_CONSTRUCTIONS = [
-    CREATE_CATS_TABLE,
+    CREATE_MUSIC_FAVORS_TABLE,
 ]
 
 

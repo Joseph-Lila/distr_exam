@@ -2,8 +2,8 @@ from typing import Optional
 
 import pytest
 
-from adapters.aiosqlite.create_db import CREATE_CATS_TABLE
-from domain.models import Cat
+from adapters.aiosqlite.create_db import CREATE_MUSIC_FAVORS_TABLE
+from domain.models import Cat, BaseEntity
 from service_layer.unit_of_work.aiosqlite_unit_of_work import \
     AiosqliteUnitOfWork
 
@@ -20,7 +20,7 @@ async def test_creation(in_memory_sqlite_db):
     new_item = Cat(nick='Кот в сапогах')
     uow = AiosqliteUnitOfWork(connection_string=in_memory_sqlite_db)
     async with uow:
-        await uow.conn.execute(CREATE_CATS_TABLE)  # each time we connect to new in-memory db
+        await uow.conn.execute(CREATE_MUSIC_FAVORS_TABLE)  # each time we connect to new in-memory db
         await uow.commit()  # so that we need to create tables for each __aenter__ entry
         assert uow.conn.total_changes == 0
         await uow.cats.create(new_item)
@@ -33,7 +33,7 @@ async def test_getting_all(in_memory_sqlite_db):
     uow = AiosqliteUnitOfWork(connection_string=in_memory_sqlite_db)
     async with uow:
         # create tables
-        await uow.conn.execute(CREATE_CATS_TABLE)
+        await uow.conn.execute(CREATE_MUSIC_FAVORS_TABLE)
         await uow.commit()
         # fill the tables
         for item in new_items:
@@ -52,13 +52,13 @@ async def test_getting_one(in_memory_sqlite_db):
     uow = AiosqliteUnitOfWork(connection_string=in_memory_sqlite_db)
     async with uow:
         # create tables
-        await uow.conn.execute(CREATE_CATS_TABLE)
+        await uow.conn.execute(CREATE_MUSIC_FAVORS_TABLE)
         await uow.commit()
         # fill the tables
         await uow.cats.create(new_item)
         await uow.commit()
         # check data
-        cat: Optional[Cat] = await uow.cats.get_by_id(1)
+        cat = await uow.cats.get_by_id(1)
         assert cat is not None
         assert cat.nick == new_item.nick
 
@@ -70,17 +70,17 @@ async def test_updating(in_memory_sqlite_db):
     uow = AiosqliteUnitOfWork(connection_string=in_memory_sqlite_db)
     async with uow:
         # create tables
-        await uow.conn.execute(CREATE_CATS_TABLE)
+        await uow.conn.execute(CREATE_MUSIC_FAVORS_TABLE)
         await uow.commit()
         # fill the tables
         await uow.cats.create(new_item)
         await uow.commit()
         # check data
-        cat: Optional[Cat] = await uow.cats.get_by_id(1)
+        cat = await uow.cats.get_by_id(1)
         assert cat.nick == new_item.nick
         cat.nick = new_nick
         await uow.cats.update(cat)
-        cat: Optional[Cat] = await uow.cats.get_by_id(1)
+        cat = await uow.cats.get_by_id(1)
         assert cat.nick == new_nick
 
 
@@ -90,7 +90,7 @@ async def test_deleting(in_memory_sqlite_db):
     uow = AiosqliteUnitOfWork(connection_string=in_memory_sqlite_db)
     async with uow:
         # create tables
-        await uow.conn.execute(CREATE_CATS_TABLE)
+        await uow.conn.execute(CREATE_MUSIC_FAVORS_TABLE)
         await uow.commit()
         # fill the tables
         await uow.cats.create(new_item)
