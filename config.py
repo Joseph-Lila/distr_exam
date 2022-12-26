@@ -25,3 +25,7 @@ def get_csv_tables_names():
 
 def get_csv_headers():
     return {'cats': ('item_id', 'nick')}
+
+
+def get_tcp_ip_credits():
+    return "localhost", 6678

@@ -1,3 +1,4 @@
+import asyncio
 from typing import Type, Dict, Callable
 
 from domain import commands, events, models
@@ -33,8 +34,18 @@ async def make_request(
     return events.MadeRequest(records)
 
 
+async def connect_to_server(
+        cmd: commands.ConnectToServer,
+):
+    reader, writer = await asyncio.open_connection(
+        cmd.host, cmd.port
+    )
+    return events.ConnectedToServer(reader, writer)
+
+
 COMMAND_HANDLERS = {
     commands.GetData: get_data,
     commands.MakeRequest: make_request,
     commands.AddRecord: add_music_favor,
+    commands.ConnectToServer: connect_to_server,
 }  # type: Dict[Type[commands.Command], Callable]

@@ -21,3 +21,9 @@ class GetData(Command):
 @dataclass
 class MakeRequest(Command):
     function: Callable
+
+
+@dataclass
+class ConnectToServer(Command):
+    host: str
+    port: int

@@ -21,3 +21,9 @@ class DataIsGiven(Event):
 @dataclass
 class MadeRequest(Event):
     data: List[BaseEntity]
+
+
+@dataclass
+class ConnectedToServer(Event):
+    reader: object
+    writer: object
