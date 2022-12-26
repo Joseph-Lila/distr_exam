@@ -3,6 +3,7 @@ import aiosqlite
 
 import config
 from adapters.aiosqlite.sqlite_repositories.cat_repository import CatRepository
+from adapters.aiosqlite.sqlite_repositories.music_favor_repository import MusicFavorRepository
 from service_layer.unit_of_work.abstract_unit_of_work import AbstractUnitOfWork
 
 
@@ -26,7 +27,7 @@ class AiosqliteUnitOfWork(AbstractUnitOfWork):
 
     async def __aenter__(self):
         self._db = await aiosqlite.connect(self._connection_string)
-        self.cats = CatRepository(self._db)
+        self.music_favors = MusicFavorRepository(self._db)
         return await super().__aenter__()
 
     async def __aexit__(self, *args):

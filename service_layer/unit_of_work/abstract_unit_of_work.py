@@ -10,7 +10,7 @@ class AbstractUnitOfWork(abc.ABC):
     """
     Abstract class for `unit of work` realizations.
     """
-    cats: Optional[AbstractRepository]
+    music_favors: Optional[AbstractRepository]
 
     async def __aenter__(self):
         return self
