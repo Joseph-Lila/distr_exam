@@ -1,3 +1,35 @@
 <ConnectionScreenView>:
-    Button:
-        text: "connection"
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: 15, 15, 15, 100
+
+        MDCard:
+            orientation: 'vertical'
+            md_bg_color: app.theme_cls.primary_light
+            padding: 15, 15, 15, 15
+
+            AnchorLayout:
+                size_hint_x: .5
+                size_hint_y: 1
+                pos_hint: {'center_x': .5, 'center_y': .5}
+
+                MDTextField:
+                    hint_text: 'Enter host...'
+                    halign: 'center'
+
+            AnchorLayout:
+                size_hint_x: .5
+                size_hint_y: 1
+                pos_hint: {'center_x': .5, 'center_y': .5}
+
+                MDTextField:
+                    hint_text: 'Enter port...'
+                    halign: 'center'
+                    input_filter: 'int'
+
+            AnchorLayout:
+
+                MDRaisedButton:
+                    text: 'Connect'
+                    font_size: 40
