@@ -2,7 +2,7 @@
 import aiosqlite
 
 from src import config
-from src.adapters.repository.aiosqlite.sqlite_repositories import \
+from src.adapters.repository.aiosqlite.sqlite_repositories.music_favor_repository import \
     MusicFavorRepository
 from src.service_layer.unit_of_work.abstract_unit_of_work import \
     AbstractUnitOfWork

@@ -1,8 +1,11 @@
 import asyncio
 import struct
 from typing import Union
+
 from loguru import logger
-from src.adapters.tcp_ip.domain.commands import Command, DisconnectFromTheServer
+
+from src.adapters.tcp_ip.domain.commands import (Command,
+                                                 DisconnectFromTheServer)
 from src.adapters.tcp_ip.domain.events import Event, ServerIsClosed
 from src.adapters.tcp_ip.servise_layer.messages_parser import MessagesParser
 from src.config import get_encoding

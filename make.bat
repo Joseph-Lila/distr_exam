@@ -5,15 +5,23 @@ IF %arg1%==test (
     )
 
 IF %arg1%==isort (
-    isort ./
+    isort src/
     )
 
 IF %arg1%==lint (
-    pylint adapters/ client/ domain/ server/ service_layer/
+    pylint src/
+    )
+
+IF %arg1%==server (
+    python -m src.entrypoints.server.main
+    )
+
+IF %arg1%==client (
+    python -m src.entrypoints.client.main
     )
 
 IF %arg1%==all (
-    isort ./
+    isort src/
     pytest tests/ --asyncio-mode=strict
-    pylint adapters/ client/ domain/ server/ service_layer/
+    pylint src/
     )

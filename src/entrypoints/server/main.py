@@ -1,13 +1,15 @@
-import asyncio
+from kivymd.app import MDApp
 
-from src.adapters.tcp_ip.domain.models import Server
-from src.config import get_tcp_ip_credits
-
-
-async def main():
-    server = Server(*get_tcp_ip_credits())
-    await server.start_server()
+from src.entrypoints.server.screens import ScreenGenerator
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
+class ServerApp(MDApp):
+    title = 'Server'
+
+    def build(self):
+        self.load_all_kv_files(self.directory)
+        return ScreenGenerator().build_app_view()
+
+
+if __name__ == '__main__':
+    ServerApp().run()
