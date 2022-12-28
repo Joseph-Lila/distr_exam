@@ -6,7 +6,7 @@ from src.service_layer.unit_of_work.abstract_unit_of_work import \
 
 
 async def add_music_favor(
-        cmd: commands.AddRecord,
+        cmd: commands.AddMusicFavor,
         uow: AbstractUnitOfWork,
 ):
     async with uow:
@@ -16,7 +16,7 @@ async def add_music_favor(
 
 
 async def get_data(
-        cmd: commands.GetData,
+        cmd: commands.GetMusicFavors,
         uow: AbstractUnitOfWork,
 ):
     async with uow:
@@ -25,7 +25,7 @@ async def get_data(
 
 
 async def make_request(
-        cmd: commands.MakeRequest,
+        cmd: commands.GetMusicFavorsBySubstring,
         uow: AbstractUnitOfWork,
 ):
     async with uow:
@@ -35,7 +35,7 @@ async def make_request(
 
 
 COMMAND_HANDLERS = {
-    commands.GetData: get_data,
-    commands.MakeRequest: make_request,
-    commands.AddRecord: add_music_favor,
+    commands.GetMusicFavors: get_data,
+    commands.GetMusicFavorsBySubstring: make_request,
+    commands.AddMusicFavor: add_music_favor,
 }  # type: Dict[Type[commands.Command], Callable]

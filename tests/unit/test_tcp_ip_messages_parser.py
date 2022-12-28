@@ -1,6 +1,6 @@
 from src.adapters.tcp_ip.domain.commands import DisconnectFromTheServer
 from src.adapters.tcp_ip.domain.events import ServerIsClosed
-from src.adapters.tcp_ip.servise_layer.messages_parser import MessagesParser
+from src.adapters.tcp_ip.servise_layer.message_parser import MessagesParser
 
 
 def test_message2str_command():

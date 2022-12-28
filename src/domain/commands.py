@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Callable
 
 from src.domain.models import BaseEntity
 
@@ -9,15 +8,15 @@ class Command:
 
 
 @dataclass
-class AddRecord(Command):
+class AddMusicFavor(Command):
     new_item: BaseEntity
 
 
 @dataclass
-class GetData(Command):
+class GetMusicFavors(Command):
     pass
 
 
 @dataclass
-class MakeRequest(Command):
-    function: Callable
+class GetMusicFavorsBySubstring(Command):
+    substring: str
