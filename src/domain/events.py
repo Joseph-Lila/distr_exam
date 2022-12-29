@@ -1,23 +1,32 @@
 from dataclasses import dataclass
 from typing import List
 
-from src.domain.models import BaseEntity
+from src.domain.models import MusicFavor
 
 
+@dataclass
 class Event:
     pass
 
 
 @dataclass
 class RecordIsAdded(Event):
-    new_item: BaseEntity
+    new_item: MusicFavor
 
 
 @dataclass
 class DataIsGiven(Event):
-    data: List[BaseEntity]
+    data: List[MusicFavor]
 
 
 @dataclass
 class MadeRequest(Event):
-    data: List[BaseEntity]
+    data: List[MusicFavor]
+
+
+class_dict = {
+    'Event': Event,
+    'RecordIsAdded': RecordIsAdded,
+    'DataIsGiven': DataIsGiven,
+    'MadeRequest': MadeRequest,
+}

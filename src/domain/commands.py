@@ -1,15 +1,16 @@
 from dataclasses import dataclass
 
-from src.domain.models import BaseEntity
+from src.domain.models import BaseEntity, MusicFavor
 
 
+@dataclass
 class Command:
     pass
 
 
 @dataclass
 class AddMusicFavor(Command):
-    new_item: BaseEntity
+    new_item: MusicFavor
 
 
 @dataclass
@@ -20,3 +21,11 @@ class GetMusicFavors(Command):
 @dataclass
 class GetMusicFavorsBySubstring(Command):
     substring: str
+
+
+class_dict = {
+    'Command': Command,
+    'AddMusicFavor': AddMusicFavor,
+    'GetMusicFavors': GetMusicFavors,
+    'GetMusicFavorsBySubstring': GetMusicFavorsBySubstring,
+}

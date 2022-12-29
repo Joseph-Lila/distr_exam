@@ -3021,7 +3021,7 @@
 											"top": 151,
 											"width": 102.62890625,
 											"height": 13,
-											"text": "MessagesParser"
+											"text": "MessageParser"
 										},
 										{
 											"_type": "LabelView",
@@ -4513,7 +4513,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGFVRlc1r5Yq9E="
 					},
-					"name": "MessagesParser",
+					"name": "MessageParser",
 					"ownedElements": [
 						{
 							"_type": "UMLInterfaceRealization",

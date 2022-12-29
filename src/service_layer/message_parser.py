@@ -1,15 +1,16 @@
+import dataclass_factory
 import json
-from dataclasses import asdict
 from typing import Union
-
-from src.adapters.tcp_ip.domain import commands, events
+from dataclasses import asdict, astuple
+from src.domain import commands, events
 
 class_dict = {}
 class_dict.update(commands.class_dict)
 class_dict.update(events.class_dict)
 
 
-class MessagesParser:
+class MessageParser:
+
     @staticmethod
     def message2str(message: Union[commands.Command, events.Event]):
         dict_message = asdict(message)
@@ -22,5 +23,6 @@ class MessagesParser:
         dict_message: dict = json.loads(str_message)
         type_name = dict_message.pop('type')
         message_type = class_dict[type_name]
-        message = message_type(**dict_message)
+        factory = dataclass_factory.Factory()
+        message = factory.load(dict_message, message_type)
         return message
