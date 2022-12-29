@@ -3,10 +3,29 @@ import struct
 from typing import Union
 
 from loguru import logger
+
+from src.bootstrap import bootstrap
 from src.config import get_encoding
 from src.domain.commands import Command
 from src.domain.events import Event
 from src.service_layer.message_parser import MessageParser
+
+
+bus = bootstrap()
+
+
+async def send_message(message: Union[Command, Event], writer: asyncio.StreamWriter):
+    str_message = MessageParser.message2str(message)
+    writer.write(struct.pack('<L', len(str_message)))
+    writer.write(str_message.encode(get_encoding()))
+    await writer.drain()
+
+
+async def get_message(reader: asyncio.StreamReader) -> Union[Command, Event]:
+    size, = struct.unpack('<L', await reader.readexactly(4))
+    message: Union[Command, Event] = \
+        MessageParser.str2message(str((await reader.readexactly(size)).decode(get_encoding())))
+    return message
 
 
 class Client:
@@ -23,18 +42,6 @@ class Client:
 
     async def disconnect(self):
         self._writer.close()
-
-    async def send_message(self, message: Union[Command, Event]):
-        str_message = MessageParser.message2str(message)
-        self._writer.write(struct.pack('<L', len(str_message)))
-        self._writer.write(str_message.encode(get_encoding()))
-        await self._writer.drain()
-
-    async def get_message(self) -> Union[Command, Event]:
-        size, = struct.unpack('<L', await self._reader.readexactly(4))
-        message: Union[Command, Event] = \
-            MessageParser.str2message(str((await self._reader.readexactly(size)).decode(get_encoding())))
-        return message
 
 
 class Server:
@@ -58,9 +65,9 @@ class Server:
     async def handle_connection(reader, writer):
         while True:
             try:
-                size, = struct.unpack('<L', await reader.readexactly(4))
-                message: Union[Command, Event] = \
-                    MessageParser.str2message(str((await reader.readexactly(size)).decode(get_encoding())))
+                message = await get_message(reader)
+                response = await bus.handle_command(message)
+                await send_message(response, writer)
             except ConnectionError:
                 logger.exception('Lost connection...')
                 break
