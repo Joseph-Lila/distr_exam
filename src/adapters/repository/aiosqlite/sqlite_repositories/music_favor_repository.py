@@ -12,7 +12,7 @@ class MusicFavorRepository(AbstractRepository):
     def __init__(self, session):
         self.session = session
 
-    async def get_all(self) -> List[models.BaseEntity]:
+    async def get_all(self) -> List[models.MusicFavor]:
         items = []
         async with self.session.execute(
                 "SELECT * FROM music_favors;"
@@ -21,7 +21,7 @@ class MusicFavorRepository(AbstractRepository):
                 items.append(MusicFavor(*row))
         return items
 
-    async def get_by_id(self, item_id: int) -> Optional[models.BaseEntity]:
+    async def get_by_id(self, item_id: int) -> Optional[models.MusicFavor]:
         cursor = await self.session.execute(
             "SELECT * "
             "FROM music_favors "

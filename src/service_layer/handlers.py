@@ -30,7 +30,7 @@ async def make_request(
 ):
     async with uow:
         records = await uow.music_favors.get_all()
-    records = [record for record in records if cmd.function(record)]
+    records = [record for record in records if cmd.substring in record.group_name]
     return events.MadeRequest(records)
 
 

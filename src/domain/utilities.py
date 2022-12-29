@@ -53,6 +53,14 @@ class Client:
     def port(self, value):
         self._port = value
 
+    @property
+    def reader(self):
+        return self._reader
+
+    @property
+    def writer(self):
+        return self._writer
+
     async def connect(self):
         if self._host and self._port:
             self._reader, self._writer = await asyncio.open_connection(
@@ -96,10 +104,8 @@ class Server:
 
     async def start_server(self):
         if self._server:
-            print('Started')
             await self._server.start_serving()
             await self._server.serve_forever()
-            print('After Serve Forever...')
 
     def is_running(self):
         return self._server.is_serving()
@@ -107,9 +113,7 @@ class Server:
     async def stop_server(self):
         if self._server.is_serving():
             self._server.close()
-            print('Close')
             await self._server.wait_closed()
-            print('Wait closed')
 
     @staticmethod
     async def handle_connection(reader, writer):
@@ -118,7 +122,6 @@ class Server:
                 message = await get_message(reader)
                 response = await bus.handle_command(message)
                 await send_message(response, writer)
-            except ConnectionError:
-                logger.exception('Lost connection...')
+            except Exception:
                 break
             logger.info(message)

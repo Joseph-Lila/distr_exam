@@ -44,8 +44,10 @@ async def create_tables(connection_string: Optional[str] = None):
     if not check_sqlite_connection_right(current_connection_str):
         try:
             logger.info("Trying to create database file...")
-            conn = await aiosqlite.connect(current_connection_str)
-            await conn.close()
+            with open(current_connection_str, 'w+') as f:
+                pass
+            # conn = await aiosqlite.connect(current_connection_str)
+            # await conn.close()
             logger.info("Database file is created successfully!")
         except Exception as exception:
             logger.exception(exception)

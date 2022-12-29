@@ -9,7 +9,7 @@ def get_sqlite_connection_str():
     Returns path to sqlite database.
     :return: str
     """
-    db_path = THIS_DIR / 'assets' / 'databases' / 'sqlite_Source.db'
+    db_path = ROOT_DIR / 'assets' / 'databases' / 'sqlite_Source.db'
     return str(db_path)
 
 

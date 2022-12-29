@@ -17,10 +17,10 @@ class MessageBus:
         self.command_handlers = command_handlers
 
     async def handle_command(self, command: commands.Command):
-        logger.debug("handling command %s", command)
+        logger.debug(f"handling command {command}")
         try:
             handler = self.command_handlers[type(command)]
-            await handler(command)
+            return await handler(command)
         except Exception:
-            logger.exception("Exception handling command %s", command)
+            logger.exception(f"Exception handling command {command}")
             raise

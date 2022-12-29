@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.domain.models import BaseEntity, MusicFavor
+from src.domain.models import MusicFavor
 
 
 @dataclass
