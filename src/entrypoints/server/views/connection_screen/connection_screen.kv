@@ -43,4 +43,4 @@
                     id: connect_btn
                     text: 'Connect'
                     font_size: 36
-                    on_release: root.controller.connect(host.text, int(port.text))
+                    on_release: ak.start(root.controller.change_state(self.text, host.text, int(port.text)))

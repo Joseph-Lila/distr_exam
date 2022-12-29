@@ -65,6 +65,9 @@ class Client:
 
 
 class Server:
+    CONNECTED = 'Connect'
+    DISCONNECTED = 'Disconnect'
+
     def __init__(self, host=None, port=None):
         super().__init__()
         self._host = host
@@ -87,20 +90,26 @@ class Server:
     def port(self, value):
         self._port = value
 
-    async def start_server(self):
+    async def create_server(self):
         if self._host and self._port:
             self._server = await asyncio.start_server(self.handle_connection, self._host, self._port)
+
+    async def start_server(self):
+        if self._server:
+            print('Started')
             await self._server.start_serving()
             await self._server.serve_forever()
+            print('After Serve Forever...')
 
-    async def is_running(self):
+    def is_running(self):
         return self._server.is_serving()
 
     async def stop_server(self):
         if self._server.is_serving():
-            logger.info("stop_server called")
+            self._server.close()
+            print('Close')
             await self._server.wait_closed()
-            logger.info('Wait closed!')
+            print('Wait closed')
 
     @staticmethod
     async def handle_connection(reader, writer):

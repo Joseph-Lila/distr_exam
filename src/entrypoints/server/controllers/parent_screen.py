@@ -3,16 +3,17 @@ from src.entrypoints.server.views.parent_screen.parent_screen import \
 
 
 class ParentScreenController:
-    """
-    Messagebus is needed only if Server will work with database for himself.
-    ! If you want to manipulate data using Server, use `messagebus`.
-    """
-    def __init__(self, server, messagebus):
+    def __init__(self, server, *args, **kwargs):
         self.server = server
-        self.messagebus = messagebus
         self._view = ParentScreenView(
             controller=self
         )
 
     def get_view(self):
         return self._view
+
+    def set_connected_state(self):
+        self._view.set_connected_state()
+
+    def set_disconnected_state(self):
+        self._view.set_disconnected_state()
