@@ -1,3 +1,5 @@
+import asyncio
+
 from kivymd.app import MDApp
 
 from src.entrypoints.server.screens import ScreenGenerator
@@ -19,4 +21,4 @@ class ServerApp(MDApp):
 
 
 if __name__ == '__main__':
-    ServerApp().run()
+    asyncio.run(ServerApp().async_run(async_lib='asyncio'))
