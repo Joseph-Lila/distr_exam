@@ -1,8 +1,22 @@
 import asyncio
 
 from kivymd.app import MDApp
-
+from kivy.utils import platform
 from src.entrypoints.server.screens import ScreenGenerator
+
+
+if platform == 'android':
+    from android.permissions import request_permissions, Permission
+    request_permissions(
+        [
+            Permission.INTERNET,
+            Permission.VIBRATE,
+            Permission.READ_EXTERNAL_STORAGE,
+            Permission.WRITE_EXTERNAL_STORAGE,
+            Permission.ACCESS_FINE_LOCATION,
+            Permission.ACCESS_COARSE_LOCATION,
+        ]
+    )
 
 
 class ServerApp(MDApp):

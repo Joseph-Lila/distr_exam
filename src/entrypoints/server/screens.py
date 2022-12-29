@@ -1,4 +1,3 @@
-from src.bootstrap import bootstrap
 from src.config import get_tcp_ip_credits
 from src.domain.utilities import Server
 from src.entrypoints.server.controllers.connection_screen import \
