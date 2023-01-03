@@ -31,11 +31,15 @@ async def get_message(reader: asyncio.StreamReader) -> Optional[Union[Command, E
 
 
 class Client:
+    CONNECTED = 'Connect'
+    DISCONNECTED = 'Disconnect'
+
     def __init__(self, host=None, port=None):
         self._host = host
         self._port = port
         self._reader = None
         self._writer = None
+        self.connected = False
 
     @property
     def host(self):
@@ -63,13 +67,19 @@ class Client:
 
     async def connect(self):
         if self._host and self._port:
-            self._reader, self._writer = await asyncio.open_connection(
-                self._host, self._port
-            )
+            try:
+                self._reader, self._writer = await asyncio.open_connection(
+                    self._host, self._port
+                )
+                self.connected = True
+            except Exception as e:
+                logger.warning('Ошибка при попытке подключения.')
+                self.connected = False
 
     async def disconnect(self):
         if self._writer:
             self._writer.close()
+            self.connected = False
 
 
 class Server:

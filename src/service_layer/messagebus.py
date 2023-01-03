@@ -17,7 +17,6 @@ class MessageBus:
         self.command_handlers = command_handlers
 
     async def handle_command(self, command: commands.Command):
-        logger.debug(f"handling command {command}")
         try:
             handler = self.command_handlers[type(command)]
             return await handler(command)
