@@ -1,0 +1,54 @@
+<DialogAddMusicFavor@BoxLayout>:
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "200dp"
+
+    group_name: group_name
+    country: country
+    mentor_surname: mentor_surname
+    written_disks_quantity: written_disks_quantity
+    total_disks_quantity: total_disks_quantity
+
+    ScrollView:
+        size: self.size
+
+        MDGridLayout:
+            cols: 1
+            size_hint_y: None
+            row_default_height: '60dp'
+            adaptive_height:True
+            spacing: 5, 5
+            padding: 10, 10, 10, 10
+
+            MDTextField:
+                id: group_name
+                hint_text: "Название группы"
+                write_tab: False
+
+            MDTextField:
+                id: country
+                hint_text: "Страна"
+                write_tab: False
+
+            MDTextField:
+                id: mentor_surname
+                hint_text: "Фамилия руководителя"
+                write_tab: False
+
+            MDTextField:
+                id: written_disks_quantity
+                hint_text: "Количество записанных дисков"
+                write_tab: False
+                input_filter: 'int'
+
+            MDTextField:
+                id: total_disks_quantity
+                hint_text: "Общий тираж дисков"
+                write_tab: False
+                input_filter: 'int'
+
+<OKButton@MDFlatButton>:
+    text: "OK"
+    theme_text_color: "Custom"
+    text_color: self.theme_cls.primary_color

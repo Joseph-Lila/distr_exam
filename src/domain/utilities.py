@@ -16,10 +16,13 @@ bus = bootstrap()
 
 async def send_message(message: Union[Command, Event], writer: asyncio.StreamWriter):
     if writer:
-        str_message = MessageParser.message2str(message)
-        writer.write(struct.pack('<L', len(str_message)))
-        writer.write(str_message.encode(get_encoding()))
-        await writer.drain()
+        try:
+            str_message = MessageParser.message2str(message)
+            writer.write(struct.pack('<L', len(str_message)))
+            writer.write(str_message.encode(get_encoding()))
+            await writer.drain()
+        except Exception:
+            raise Exception('Connection Lost')
 
 
 async def get_message(reader: asyncio.StreamReader) -> Optional[Union[Command, Event]]:
