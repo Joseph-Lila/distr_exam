@@ -77,6 +77,10 @@ class DataScreenView(MDScreen):
         )
         ak.start(self.controller.send_add_command(music_favor_to_add))
 
+    @staticmethod
+    def show_snackdar(text):
+        Snackbar(text=text).open()
+
     def show_lost_connection_snackbar(self):
         self._data_table.row_data = []
         Snackbar(text="Connection Lost...").open()

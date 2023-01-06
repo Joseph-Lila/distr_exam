@@ -31,6 +31,3 @@ def inject_dependencies(handler, dependencies):
         if name in params
     }
     return lambda message: handler(message, **deps)
-
-
-bus = bootstrap()

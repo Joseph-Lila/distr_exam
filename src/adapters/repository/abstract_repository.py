@@ -3,6 +3,7 @@ import abc
 from typing import List
 
 from src.domain import models
+from src.domain.models import MusicFavor
 
 
 class AbstractRepository(abc.ABC):
@@ -47,6 +48,14 @@ class AbstractRepository(abc.ABC):
         """
         Abstract method to create new object.
         :param item: models.BaseEntity
+        :return: None
+        """
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    async def clear_table(self):
+        """
+        Abstract method to make all the tables empty.
         :return: None
         """
         raise NotImplementedError

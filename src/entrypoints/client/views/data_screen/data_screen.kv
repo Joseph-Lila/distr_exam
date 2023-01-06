@@ -1,5 +1,8 @@
+#: import ak asynckivy
+
 <DataScreenView>:
     data_table_cont: data_table_cont
+    substr: substr
 
     MDBoxLayout:
         orientation: 'vertical'
@@ -10,15 +13,65 @@
             padding: 25, 25, 25, 25
             spacing: 10
 
-            AnchorLayout:
-                size_hint_y: .15
+            GridLayout:
+                size_hint_y: .3
+                cols: 3
 
-                MDIconButton:
-                    icon: 'plus-circle-outline'
-                    pos_hint: {"center_x": .5, "center_y": .5}
-                    theme_icon_color: "Custom"
-                    icon_color: 0, 141/255, 142/255, 1
-                    on_release: root.open_add_music_favor_popup()
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    AnchorLayout:
+
+                        TooltipMDIconButton:
+                            icon: 'calendar-check-outline'
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            tooltip_text: 'Get items included substring'
+                            theme_icon_color: "Custom"
+                            icon_color: 0, 141/255, 142/255, 1
+                            on_release: ak.start(root.controller.send_request_command(substr.text))
+
+                    AnchorLayout:
+
+                        MDTextField:
+                            id: substr
+                            halign: 'center'
+                            valign: 'center'
+                            size_hint_x: .5
+                            hint_text: 'Enter substring...'
+
+                AnchorLayout:
+
+                    TooltipMDIconButton:
+                        icon: 'plus-circle-outline'
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        theme_icon_color: "Custom"
+                        tooltip_text: "Add new item"
+                        icon_color: 0, 141/255, 142/255, 1
+                        on_release: root.open_add_music_favor_popup()
+
+                MDCard:
+                    md_bg_color: 'azure'
+
+                    AnchorLayout:
+
+                        TooltipMDIconButton:
+                            icon: 'database-export-outline'
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            theme_icon_color: "Custom"
+                            tooltip_text: "Export database"
+                            icon_color: 0, 141/255, 142/255, 1
+                            on_release: ak.start(root.controller.export_database())
+
+
+                    AnchorLayout:
+
+                        TooltipMDIconButton:
+                            icon: 'database-import-outline'
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            theme_icon_color: "Custom"
+                            tooltip_text: "Import database"
+                            icon_color: 0, 141/255, 142/255, 1
+                            on_release: ak.start(root.controller.import_database())
 
             MDBoxLayout:
                 id: data_table_cont

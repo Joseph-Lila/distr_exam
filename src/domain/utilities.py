@@ -5,13 +5,15 @@ from typing import Union, Optional
 from loguru import logger
 
 from src.bootstrap import bootstrap
-from src.config import get_encoding
-from src.domain.commands import Command
-from src.domain.events import Event
+from src.config import get_encoding, get_additional_sqlite_connection_str
+from src.domain.commands import Command, SendDbDataToServer, AddMusicFavor, GetMusicFavors
+from src.domain.events import Event, DbDataIsSentFromServer
 from src.service_layer.message_parser import MessageParser
+from src.service_layer.unit_of_work.aiosqlite_unit_of_work import AiosqliteUnitOfWork
 
 
 bus = bootstrap()
+additional_bus = bootstrap(uow=AiosqliteUnitOfWork(connection_string=get_additional_sqlite_connection_str()))
 
 
 async def send_message(message: Union[Command, Event], writer: asyncio.StreamWriter):
@@ -83,6 +85,20 @@ class Client:
         if self._writer:
             self._writer.close()
             self.connected = False
+
+    @staticmethod
+    async def fill_additional_db(event: DbDataIsSentFromServer):
+        if type(event) == DbDataIsSentFromServer:
+            async with additional_bus.uow:
+                await additional_bus.uow.music_favors.clear_table()
+                await additional_bus.uow.commit()
+            for item in event.data:
+                await additional_bus.handle_command(AddMusicFavor(item))
+
+    @staticmethod
+    async def share_additional_db():
+        records = await additional_bus.handle_command(GetMusicFavors())
+        return records
 
 
 class Server:

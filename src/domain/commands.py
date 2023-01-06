@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import List
 
 from src.domain.models import MusicFavor
 
@@ -23,9 +24,21 @@ class GetMusicFavorsBySubstring(Command):
     substring: str
 
 
+@dataclass
+class SendDbDataToServer(Command):
+    data: List[MusicFavor]
+
+
+@dataclass
+class GetDbDataFromServer(Command):
+    pass
+
+
 class_dict = {
     'Command': Command,
     'AddMusicFavor': AddMusicFavor,
     'GetMusicFavors': GetMusicFavors,
     'GetMusicFavorsBySubstring': GetMusicFavorsBySubstring,
+    'SendDbDataToServer': SendDbDataToServer,
+    'GetDbDataFromServer': GetDbDataFromServer,
 }

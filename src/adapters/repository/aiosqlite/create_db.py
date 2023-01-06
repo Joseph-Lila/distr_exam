@@ -7,7 +7,7 @@ from typing import Optional
 import aiosqlite
 from loguru import logger
 
-from src.config import get_sqlite_connection_str
+from src.config import get_sqlite_connection_str, get_additional_sqlite_connection_str
 
 CREATE_MUSIC_FAVORS_TABLE = "CREATE TABLE IF NOT EXISTS music_favors (" \
                     "item_id INTEGER PRIMARY KEY AUTOINCREMENT," \
@@ -44,10 +44,8 @@ async def create_tables(connection_string: Optional[str] = None):
     if not check_sqlite_connection_right(current_connection_str):
         try:
             logger.info("Trying to create database file...")
-            with open(current_connection_str, 'w+') as f:
-                pass
-            # conn = await aiosqlite.connect(current_connection_str)
-            # await conn.close()
+            conn = await aiosqlite.connect(current_connection_str)
+            await conn.close()
             logger.info("Database file is created successfully!")
         except Exception as exception:
             logger.exception(exception)
@@ -63,3 +61,4 @@ async def create_tables(connection_string: Optional[str] = None):
 
 if __name__ == "__main__":
     asyncio.run(create_tables())
+    asyncio.run(create_tables(get_additional_sqlite_connection_str()))

@@ -34,8 +34,32 @@ async def make_request(
     return events.MadeRequest(records)
 
 
+async def send_db_data_to_server(
+        cmd: commands.SendDbDataToServer,
+        uow: AbstractUnitOfWork,
+):
+    async with uow:
+        await uow.music_favors.clear_table()
+        await uow.commit()
+        for item in cmd.data:
+            await uow.music_favors.create(item)
+        await uow.commit()
+    return events.DbDataIsSentToServer()
+
+
+async def get_db_data_from_server(
+        cmd: commands.GetDbDataFromServer,
+        uow: AbstractUnitOfWork,
+):
+    async with uow:
+        records = await uow.music_favors.get_all()
+    return events.DbDataIsSentFromServer(records)
+
+
 COMMAND_HANDLERS = {
     commands.GetMusicFavors: get_data,
     commands.GetMusicFavorsBySubstring: make_request,
     commands.AddMusicFavor: add_music_favor,
+    commands.SendDbDataToServer: send_db_data_to_server,
+    commands.GetDbDataFromServer: get_db_data_from_server,
 }  # type: Dict[Type[commands.Command], Callable]

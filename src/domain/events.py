@@ -24,9 +24,21 @@ class MadeRequest(Event):
     data: List[MusicFavor]
 
 
+@dataclass
+class DbDataIsSentToServer(Event):
+    pass
+
+
+@dataclass
+class DbDataIsSentFromServer(Event):
+    data: List[MusicFavor]
+
+
 class_dict = {
     'Event': Event,
     'RecordIsAdded': RecordIsAdded,
     'DataIsGiven': DataIsGiven,
     'MadeRequest': MadeRequest,
+    'DbDataIsSentToServer': DbDataIsSentToServer,
+    'DbDataIsSentFromServer': DbDataIsSentFromServer,
 }

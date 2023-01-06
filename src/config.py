@@ -13,6 +13,11 @@ def get_sqlite_connection_str():
     return str(db_path)
 
 
+def get_additional_sqlite_connection_str():
+    db_path = ROOT_DIR / 'assets' / 'databases' / 'sqlite_additional_Source.db'
+    return str(db_path)
+
+
 def get_tcp_ip_credits():
     return "localhost", 6678
 

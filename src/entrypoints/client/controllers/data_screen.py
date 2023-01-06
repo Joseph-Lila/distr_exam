@@ -1,8 +1,9 @@
 import asyncio
 import functools
 import asynckivy as ak
-from src.domain.commands import AddMusicFavor, GetMusicFavors
-from src.domain.events import DataIsGiven
+from src.domain.commands import AddMusicFavor, GetMusicFavors, GetMusicFavorsBySubstring, SendDbDataToServer, \
+    GetDbDataFromServer
+from src.domain.events import DataIsGiven, MadeRequest, DbDataIsSentToServer, DbDataIsSentFromServer
 from src.domain.utilities import send_message, get_message
 from src.entrypoints.client.views.data_screen.data_screen import DataScreenView
 
@@ -47,5 +48,36 @@ class DataScreenController:
             await send_message(GetMusicFavors(), self.client.writer)
             response: DataIsGiven = await get_message(self.client.reader)
             await self._view.data_is_given(response.data)
+        except Exception:
+            self._view.show_lost_connection_snackbar()
+
+    @use_loop
+    async def send_request_command(self, substr: str):
+        try:
+            await send_message(GetMusicFavorsBySubstring(substr), self.client.writer)
+            response: MadeRequest = await get_message(self.client.reader)
+            await self._view.data_is_given(response.data)
+        except Exception:
+            self._view.show_lost_connection_snackbar()
+
+    @use_loop
+    async def export_database(self, *args):
+        response = await self.client.share_additional_db()
+        try:
+            await send_message(SendDbDataToServer(response.data), self.client.writer)
+            await get_message(self.client.reader)
+            await self.send_get_data_command()
+            self._view.show_snackdar("Data exported successfully!")
+        except Exception:
+            self._view.show_lost_connection_snackbar()
+
+    @use_loop
+    async def import_database(self, *args):
+        try:
+            await send_message(GetDbDataFromServer(), self.client.writer)
+            response: DbDataIsSentFromServer = await get_message(self.client.reader)
+            await self.client.fill_additional_db(response)
+            await self.send_get_data_command()
+            self._view.show_snackdar("Data imported successfully!")
         except Exception:
             self._view.show_lost_connection_snackbar()

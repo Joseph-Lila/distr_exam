@@ -48,3 +48,8 @@ class MusicFavorRepository(AbstractRepository):
             (item.group_name, item.country, item.mentor_surname, item.written_disks_quantity, item.total_disks_quantity)
         )
 
+    async def clear_table(self):
+        await self.session.execute(
+            "DELETE FROM music_favors"
+        )
+
