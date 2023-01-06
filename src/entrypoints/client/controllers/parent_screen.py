@@ -1,4 +1,5 @@
-from src.entrypoints.client.views.parent_screen.parent_screen import ParentScreenView
+from src.entrypoints.client.views.parent_screen.parent_screen import \
+    ParentScreenView
 
 
 class ParentScreenController:

@@ -1,6 +1,7 @@
 import asyncio
 
 from kivymd.app import MDApp
+
 from src.entrypoints.server.screens import ScreenGenerator
 
 

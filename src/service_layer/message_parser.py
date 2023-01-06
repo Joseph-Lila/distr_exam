@@ -1,7 +1,9 @@
-import dataclass_factory
 import json
-from typing import Union
 from dataclasses import asdict
+from typing import Union
+
+import dataclass_factory
+
 from src.domain import commands, events
 
 class_dict = {}

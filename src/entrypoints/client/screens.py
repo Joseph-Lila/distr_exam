@@ -1,9 +1,12 @@
 from src.config import get_tcp_ip_credits
 from src.domain.utilities import Client
-from src.entrypoints.client.controllers.connection_screen import ConnectionScreenController
+from src.entrypoints.client.controllers.connection_screen import \
+    ConnectionScreenController
 from src.entrypoints.client.controllers.data_screen import DataScreenController
-from src.entrypoints.client.controllers.pandas_screen import PandasScreenController
-from src.entrypoints.client.controllers.parent_screen import ParentScreenController
+from src.entrypoints.client.controllers.pandas_screen import \
+    PandasScreenController
+from src.entrypoints.client.controllers.parent_screen import \
+    ParentScreenController
 
 SCREENS = {
     "connection screen": ConnectionScreenController,

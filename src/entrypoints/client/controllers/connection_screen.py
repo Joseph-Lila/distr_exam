@@ -1,8 +1,10 @@
 import asyncio
-from typing import Optional
 from functools import partial
+from typing import Optional
+
 from src.domain.utilities import Client
-from src.entrypoints.client.views.connection_screen.connection_screen import ConnectionScreenView
+from src.entrypoints.client.views.connection_screen.connection_screen import \
+    ConnectionScreenView
 
 
 class ConnectionScreenController:

@@ -1,10 +1,14 @@
 import asyncio
 import functools
+
 import asynckivy as ak
-from src.domain.commands import AddMusicFavor, GetMusicFavors, GetMusicFavorsBySubstring, SendDbDataToServer, \
-    GetDbDataFromServer
-from src.domain.events import DataIsGiven, MadeRequest, DbDataIsSentToServer, DbDataIsSentFromServer
-from src.domain.utilities import send_message, get_message
+
+from src.domain.commands import (AddMusicFavor, GetDbDataFromServer,
+                                 GetMusicFavors, GetMusicFavorsBySubstring,
+                                 SendDbDataToServer)
+from src.domain.events import (DataIsGiven, DbDataIsSentFromServer,
+                               DbDataIsSentToServer, MadeRequest)
+from src.domain.utilities import get_message, send_message
 from src.entrypoints.client.views.data_screen.data_screen import DataScreenView
 
 

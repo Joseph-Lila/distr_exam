@@ -7,7 +7,8 @@ from typing import Optional
 import aiosqlite
 from loguru import logger
 
-from src.config import get_sqlite_connection_str, get_additional_sqlite_connection_str
+from src.config import (get_additional_sqlite_connection_str,
+                        get_sqlite_connection_str)
 
 CREATE_MUSIC_FAVORS_TABLE = "CREATE TABLE IF NOT EXISTS music_favors (" \
                     "item_id INTEGER PRIMARY KEY AUTOINCREMENT," \

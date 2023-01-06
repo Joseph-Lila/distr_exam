@@ -27,3 +27,5 @@ aiofiles==22.1.0
 kivymd==1.1.1
 Kivy==2.1.0
 asynckivy==0.5.4
+pandas==1.5.2
+numpy==1.24.1

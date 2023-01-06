@@ -1,16 +1,17 @@
 import asyncio
 import struct
-from typing import Union, Optional
+from typing import Optional, Union
 
 from loguru import logger
 
 from src.bootstrap import bootstrap
-from src.config import get_encoding, get_additional_sqlite_connection_str
-from src.domain.commands import Command, SendDbDataToServer, AddMusicFavor, GetMusicFavors
-from src.domain.events import Event, DbDataIsSentFromServer
+from src.config import get_additional_sqlite_connection_str, get_encoding
+from src.domain.commands import (AddMusicFavor, Command, GetMusicFavors,
+                                 SendDbDataToServer)
+from src.domain.events import DbDataIsSentFromServer, Event
 from src.service_layer.message_parser import MessageParser
-from src.service_layer.unit_of_work.aiosqlite_unit_of_work import AiosqliteUnitOfWork
-
+from src.service_layer.unit_of_work.aiosqlite_unit_of_work import \
+    AiosqliteUnitOfWork
 
 bus = bootstrap()
 additional_bus = bootstrap(uow=AiosqliteUnitOfWork(connection_string=get_additional_sqlite_connection_str()))

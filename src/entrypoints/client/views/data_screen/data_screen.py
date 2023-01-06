@@ -1,14 +1,13 @@
+from dataclasses import astuple
 from typing import List
 
+import asynckivy as ak
 from kivy.factory import Factory
 from kivy.metrics import dp
 from kivy.properties import ObjectProperty
 from kivymd.uix.datatables import MDDataTable
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.screen import MDScreen
-import asynckivy as ak
-from dataclasses import astuple
-
 from kivymd.uix.snackbar import Snackbar
 
 from src.domain.models import MusicFavor
@@ -33,7 +32,7 @@ class DataScreenView(MDScreen):
     async def _add_data_table(self):
         self._data_table = MDDataTable(
             use_pagination=True,
-            check=True,
+            # check=True,
             column_data=[
                 ("ID", dp(20)),
                 ("Название группы", dp(35)),
@@ -79,8 +78,8 @@ class DataScreenView(MDScreen):
 
     @staticmethod
     def show_snackdar(text):
-        Snackbar(text=text).open()
+        Snackbar(text=text, snackbar_animation_dir='Top').open()
 
     def show_lost_connection_snackbar(self):
         self._data_table.row_data = []
-        Snackbar(text="Connection Lost...").open()
+        Snackbar(text="Connection Lost...", snackbar_animation_dir='Top').open()

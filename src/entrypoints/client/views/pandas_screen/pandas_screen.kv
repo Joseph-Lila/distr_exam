@@ -1,3 +1,70 @@
+#: import ak asynckivy
+
 <PandasScreenView>:
-    Button:
-        text: 'pandas'
+    data_table_cont: data_table_cont
+    search_mode: search_mode
+    search_section: search_section
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: 15, 15, 15, 100
+
+        MDBoxLayout:
+            orientation: 'vertical'
+            padding: 25, 25, 25, 25
+            spacing: 10
+
+            MDCard:
+                size_hint_y: .45
+                orientation: 'vertical'
+                md_bg_color: app.theme_cls.primary_light
+                spacing: 5
+                padding: 5
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    BoxLayout:
+                        orientation: 'vertical'
+
+                        AnchorLayout:
+
+                            MDSegmentedControl:
+                                pos_hint: {"center_x": .5, "center_y": .5}
+                                md_bg_color: app.theme_cls.accent_dark
+                                separator_color: "black"
+                                id: search_section
+
+                                MDSegmentedControlItem:
+                                    text: "Кол-во дисков"
+
+                                MDSegmentedControlItem:
+                                    text: "Общ. тираж"
+
+                        AnchorLayout:
+
+                            MDSegmentedControl:
+                                pos_hint: {"center_x": .5, "center_y": .5}
+                                md_bg_color: app.theme_cls.accent_light
+                                separator_color: "black"
+                                id: search_mode
+
+                                MDSegmentedControlItem:
+                                    text: "Старт"
+
+                                MDSegmentedControlItem:
+                                    text: "Итоги"
+
+                                MDSegmentedControlItem:
+                                    text: "Поменять местами"
+
+            AnchorLayout:
+                size_hint_y: .15
+
+                MDRaisedButton:
+                    text: 'Получить данные'
+                    md_bg_color: app.theme_cls.opposite_bg_normal
+                    on_release: ak.start(root.controller.send_get_data_command())
+
+            MDBoxLayout:
+                id: data_table_cont
