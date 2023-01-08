@@ -3,7 +3,6 @@ import abc
 from typing import List
 
 from src.domain import models
-from src.domain.models import MusicFavor
 
 
 class AbstractRepository(abc.ABC):

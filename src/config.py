@@ -19,7 +19,7 @@ def get_additional_sqlite_connection_str():
 
 
 def get_tcp_ip_credits():
-    return "localhost", 6678
+    return '192.168.100.235', 5000
 
 
 def get_encoding():
